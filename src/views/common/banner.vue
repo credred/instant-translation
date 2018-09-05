@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav class="nav">
     <div class="nav-item"><router-link to="/translate" active-class="nav-item-on"><i class="icon1"></i><span>翻译</span></router-link></div>
     <div class="nav-item"><router-link to="/favorite" active-class="nav-item-on"><i class="icon2"></i><span>收藏</span></router-link></div>
   </nav>
@@ -14,7 +14,7 @@ export default {
 };
 </script>
 <style lang="scss">
-  nav {
+  .nav {
     display: flex;
     justify-content: space-around;
     margin: 0 auto;
