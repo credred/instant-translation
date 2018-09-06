@@ -46,7 +46,7 @@ export default {
         this.isWarn = false;
       }
       if (this.searchText !== '') {
-        this.$router.push({name: 'translate_result', params: {translateResult: this.searchText}});
+        this.$router.push({name: 'translate_result', params: {result: this.searchText}});
       } else {
         this.isWarn = true;
         this.timeoutTag = setTimeout(() => {
@@ -58,7 +58,7 @@ export default {
   created () {
     bus.$on('changeText', data => {
       this.searchText = data;
-      this.$router.push({name: 'translate_result', params: {translateResult: this.searchText}});
+      this.$router.push({name: 'translate_result', params: {result: this.searchText}});
     });
   },
   watch: {
