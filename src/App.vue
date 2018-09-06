@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <router-view name="header"></router-view>
+    <router-view name="main"></router-view>
     <router-view name="banner"></router-view>
   </div>
 </template>
@@ -13,6 +14,6 @@ export default {
 
 <style>
 #app {
-  min-height: 100%;
+  height: 100%;
 }
 </style>

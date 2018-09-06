@@ -1,11 +1,12 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import banner from '@/views/common/banner';
-import translateIndex from '@/views/translate/translate_index';
-import translateResult from '@/views/translate/translate_result';
-import favoriteIndex from '@/views/favorite/favorite_index';
-import favoriteItem from '@/views/favorite/favorite_item';
-
+import banner from '@/components/common/banner';
+import translateHeader from '@/components/translate/common/header.vue';
+import translateBg from '@/components/translate/index/bg.vue';
+import tranlsateCandidate from '@/components/translate/candidate/can.vue';
+import translateResult from '@/components/translate/result/result.vue';
+import favoriteList from '@/components/favorite/index/list.vue';
+import favoriteItem from '@/components/favorite/item/item.vue';
 Vue.use(Router);
 
 export default new Router({
@@ -14,16 +15,26 @@ export default new Router({
       path: '/translate',
       name: 'translate',
       components: {
-        default: translateIndex,
+        header: translateHeader,
+        main: translateBg,
         banner
       },
       alias: '/'
     },
     {
-      path: '/translate/result/:translateResult',
+      path: '/translate/candidate/:candidate',
+      name: 'translate_candidate',
+      components: {
+        header: translateHeader,
+        main: tranlsateCandidate
+      }
+    },
+    {
+      path: '/translate/result/:result',
       name: 'translate_result',
       components: {
-        default: translateResult,
+        header: translateHeader,
+        main: translateResult,
         banner
       }
     },
@@ -31,7 +42,7 @@ export default new Router({
       path: '/favorite',
       name: 'favorite',
       components: {
-        default: favoriteIndex,
+        main: favoriteList,
         banner
       }
     },
@@ -39,7 +50,7 @@ export default new Router({
       path: '/favorite/item/:favorite_item',
       name: 'favorite_item',
       components: {
-        default: favoriteItem,
+        main: favoriteItem,
         banner
       }
     }
