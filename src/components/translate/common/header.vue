@@ -18,6 +18,7 @@
 
 </template>
 <script>
+import bus from '../bus';
 export default {
   name: 'translate_header',
   data () {
@@ -53,6 +54,11 @@ export default {
         }, 1000);
       }
     }
+  },
+  created () {
+    bus.$on('changeText', data => {
+      this.searchText = data;
+    });
   },
   watch: {
     searchText: function (newText) {
