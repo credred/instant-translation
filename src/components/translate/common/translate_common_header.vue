@@ -66,7 +66,7 @@ export default {
         }, {
           cancelToken: this.source.taken
         }).then((res) => {
-          this.$store.commit('can', res);
+          this.$store.commit('addCan', res.data);
           this.$emit('showCan');
         }).catch(function (error) {
           console.log(error);

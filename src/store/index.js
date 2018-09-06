@@ -4,15 +4,23 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    can: {},
+    can: {
+      test: '',
+      data: [
+        {
+          k: '',
+          v: ''
+        }
+      ]
+    },
     result: {}
   },
   mutations: {
-    addCan (can, payload) {
-      can = payload;
+    addCan (state, payload) {
+      state.can = payload;
     },
-    addResult (result, payload) {
-      result = payload;
+    addResult (state, payload) {
+      state.result = payload;
     }
   }
 });
