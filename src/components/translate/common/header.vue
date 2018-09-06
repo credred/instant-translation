@@ -68,12 +68,16 @@ export default {
       if (this.searchText !== '') {
         this.source = this.$axios.CancelToken.source();
         this.$axios.post('/candidate', {
-          candidate: this.searchText
+          'candidate': this.searchText
         }, {
           cancelToken: this.source.taken
         }).then((res) => {
           this.$store.commit('addCan', res.data);
-          this.$emit('showCan');
+          if (this.$route.params.candidate) {
+            this.$router.replace({name: 'translate_candidate', params: {candidate: this.searchText}});
+          } else {
+            this.$router.push({name: 'translate_candidate', params: {candidate: this.searchText}});
+          }
         }).catch(function (error) {
           console.log(error);
         });
