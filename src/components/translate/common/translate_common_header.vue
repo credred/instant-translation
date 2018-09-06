@@ -25,7 +25,8 @@ export default {
       searchText: '',
       isActive: false,
       headerText: '即刻翻译',
-      isWarn: false
+      isWarn: false,
+      source: this.$axios.CancelToken.source()
     };
   },
   methods: {
@@ -50,6 +51,26 @@ export default {
         this.timeoutTag = setTimeout(() => {
           this.isWarn = false;
         }, 1000);
+      }
+    }
+  },
+  watch: {
+    searchText: function (newText) {
+      if (this.source) {
+        this.source.cancel();
+      }
+      if (this.searchText !== '') {
+        this.source = this.$axios.CancelToken.source();
+        this.$axios.post('/candidate', {
+          candidate: this.searchText
+        }, {
+          cancelToken: this.source.taken
+        }).then((res) => {
+          this.$store.commit('can', res);
+          this.$emit('showCan');
+        }).catch(function (error) {
+          console.log(error);
+        });
       }
     }
   }
