@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import banner from '@/views/common/banner';
 import translateIndex from '@/views/translate/translate_index';
-import translateCandidate from '@/views/translate/translate_candidate';
 import translateResult from '@/views/translate/translate_result';
 import favoriteIndex from '@/views/favorite/favorite_index';
 import favoriteItem from '@/views/favorite/favorite_item';
@@ -19,13 +18,6 @@ export default new Router({
         banner
       },
       alias: '/'
-    },
-    {
-      path: '/tanslate/candidate/:translateCandidate',
-      name: 'translate_candidate',
-      components: {
-        default: translateCandidate
-      }
     },
     {
       path: '/translate/result/:translateResult',
