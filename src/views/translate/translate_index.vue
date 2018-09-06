@@ -6,9 +6,9 @@
   </div>
 </template>
 <script>
-import translateHeader from '@/components/translate/common/translate_common_header';
-import translateBg from '@/components/translate/index/translate_index_bg';
-import translateCan from '@/components/translate/index/translate_index_can';
+import translateHeader from '@/components/translate/common/header';
+import translateBg from '@/components/translate/index/bg';
+import translateCan from '@/components/translate/index/can';
 export default {
   name: 'translate_index',
   data () {
