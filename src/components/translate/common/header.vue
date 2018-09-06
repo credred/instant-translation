@@ -58,6 +58,7 @@ export default {
   created () {
     bus.$on('changeText', data => {
       this.searchText = data;
+      this.$router.push({name: 'translate_result', params: {translateResult: this.searchText}});
     });
   },
   watch: {
