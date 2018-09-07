@@ -4,6 +4,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    source: '',
     can: {
       test: '',
       data: [
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     result: {}
   },
   mutations: {
+    addSource (state, payload) {
+      state.source = payload;
+    },
     addCan (state, payload) {
       state.can = payload;
     },

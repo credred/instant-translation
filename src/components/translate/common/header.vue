@@ -26,9 +26,13 @@ export default {
       searchText: '',
       isActive: false,
       headerText: '即刻翻译',
-      isWarn: false,
-      source: this.$axios.CancelToken.source()
+      isWarn: false
     };
+  },
+  computed: {
+    source () {
+      return this.$store.state.source;
+    }
   },
   methods: {
     clear () {
@@ -62,12 +66,12 @@ export default {
     });
   },
   watch: {
-    searchText: function (newText) {
+    searchText: function (newText, oldText) {
       if (this.source) {
-        this.source.cancel();
+        this.source.cancel(`上一个请求${oldText}被取消`);
       }
       if (this.searchText !== '') {
-        this.source = this.$axios.CancelToken.source();
+        this.$store.commit('addSource', this.$axios.CancelToken.source());
         this.$axios.post('/candidate', {
           'candidate': this.searchText
         }, {
@@ -82,6 +86,8 @@ export default {
         }).catch(function (error) {
           console.log(error);
         });
+      } else {
+        this.$router.back();
       }
     }
   }
