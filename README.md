@@ -1,7 +1,18 @@
 # instant-translation
-
-> A mobile phone translation application
-
+在线页面[cqiufan.cn](https://www.cqiufan.cn)
+> A mobile phone translation application  
+利用axios向后台发送请求，后台nginx转发请求给express，express利用translation.js伪造浏览器向百度翻译发送post请求得到翻译结果并返回给页面。
+前台方面，使用了vue做单页应用。
+## 技术栈
+vue vuex vue-router axios
+- [x] **翻译页面**
+  - [x] 头组件(包含标题和搜索栏)
+  - [x] 候选词组件
+  - [x] 翻译结果组件
+- [] **收藏页面**
+  - [] 收藏列表组件
+  - [] 收藏词组件
+- [x] **banner组件** 
 ## 目录结构
 .
 ├── README.md           
@@ -13,6 +24,14 @@
 ├── src                // 生产目录
 │   ├── assets         // css js 和图片资源
 │   ├── components     // 各种组件
-│   ├── views          // 各种页面
 │   └── main.js        // Webpack 预编译入口
 
+## 路由结构
+.
+├── translate          // 翻译页面
+|   ├── index          // 首页
+|   ├── candidate      // 候选词
+|   ├── result         // 搜索结果
+├── favorite           // 收藏页面
+├   ├── index          // 收藏词列表
+|   ├── item           // 收藏词详情
