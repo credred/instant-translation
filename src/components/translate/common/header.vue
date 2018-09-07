@@ -27,7 +27,8 @@ export default {
       isActive: false,
       headerText: '即刻翻译',
       isWarn: false,
-      timeoutTag: ''
+      timeoutTag: '',
+      jump: true
     };
   },
   computed: {
@@ -50,6 +51,9 @@ export default {
       this.isActive = !this.isActive;
     },
     push () {
+      if (this.source) {
+        this.source.cancel(`上一个请求被取消`);
+      }
       if (this.timeoutTag) {
         console.log('clearing');
         clearTimeout(this.timeoutTag);
@@ -70,7 +74,9 @@ export default {
   },
   created () {
     bus.$on('changeText', data => {
+      this.jump = false;
       this.searchText = data;
+      this.jump = true;
       this.$router.push({name: 'translate_result', params: {result: this.searchText}});
     });
   },
@@ -79,24 +85,26 @@ export default {
       if (this.source) {
         this.source.cancel(`上一个请求${oldText}被取消`);
       }
-      if (this.searchText !== '') {
-        this.$store.commit('addSource', this.$axios.CancelToken.source());
-        this.$axios.post('/candidate', {
-          'candidate': this.searchText
-        }, {
-          cancelToken: this.source.taken
-        }).then((res) => {
-          this.$store.commit('addCan', res.data);
-          if (this.$route.params.candidate) {
-            this.$router.replace({name: 'translate_candidate', params: {candidate: this.searchText}});
-          } else {
-            this.$router.push({name: 'translate_candidate', params: {candidate: this.searchText}});
-          }
-        }).catch(function (error) {
-          console.log(error);
-        });
-      } else {
-        this.$router.back();
+      if (this.jump) {
+        if (this.searchText !== '') {
+          this.$store.commit('addSource', this.$axios.CancelToken.source());
+          this.$axios.post('/candidate', {
+            'candidate': this.searchText
+          }, {
+            cancelToken: this.source.taken
+          }).then((res) => {
+            this.$store.commit('addCan', res.data);
+            if (this.$route.params.candidate) {
+              this.$router.replace({name: 'translate_candidate', params: {candidate: this.searchText}});
+            } else {
+              this.$router.push({name: 'translate_candidate', params: {candidate: this.searchText}});
+            }
+          }).catch(function (error) {
+            console.log(error);
+          });
+        } else {
+          this.$router.back();
+        }
       }
     }
   }
