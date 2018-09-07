@@ -20,10 +20,8 @@ export default {
   computed: {
     sents () {
       let sents = [];
-      console.log(this.sentence.entry[0].data[0].data);
       let data = this.sentence.entry[0].data[0].data;
       (function get (data) {
-        console.log(data);
         if (data) {
           for (let d of data) {
             if (d.enText && d.chText) {

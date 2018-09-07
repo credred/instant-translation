@@ -28,7 +28,7 @@ export default {
   },
   computed: {
     result () {
-      return this.$store.state.result.data && this.$store.state.result.data[0];
+      return this.$store.state.result;
     },
     simple () {
       return {
