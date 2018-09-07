@@ -1,6 +1,6 @@
 <template>
 <div class="header">
-  <div class="logo">{{headerText}}</div>
+  <div class="logo"><span class="back" v-show="!onIndex" @click="back">⬅</span>{{headerText}}</div>
   <div class="input-wrap">
     <input class="input" type="text" v-model="searchText" @focus="switchStatus" @blur="switchStatus" ref="inputText">
     <transition name="inputFade">
@@ -26,12 +26,19 @@ export default {
       searchText: '',
       isActive: false,
       headerText: '即刻翻译',
-      isWarn: false
+      isWarn: false,
+      timeoutTag: ''
     };
   },
   computed: {
     source () {
       return this.$store.state.source;
+    },
+    onIndex () {
+      if (this.$route.name !== 'translate') {
+        return false;
+      }
+      return true;
     }
   },
   methods: {
@@ -43,7 +50,6 @@ export default {
       this.isActive = !this.isActive;
     },
     push () {
-      console.log(this.timeoutTag);
       if (this.timeoutTag) {
         console.log('clearing');
         clearTimeout(this.timeoutTag);
@@ -57,6 +63,9 @@ export default {
           this.isWarn = false;
         }, 1000);
       }
+    },
+    back () {
+      this.$router.back();
     }
   },
   created () {
@@ -97,6 +106,10 @@ export default {
   .header {
     background: #6a85a8;
     height: 100px;
+    .back {
+      margin-right: 15px;
+      cursor: pointer;
+    }
   }
   .logo {
     color: #ffffff;
