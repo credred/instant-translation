@@ -76,7 +76,6 @@ export default {
     bus.$on('changeText', data => {
       this.jump = false;
       this.searchText = data;
-      this.jump = true;
       this.$router.push({name: 'translate_result', params: {result: this.searchText}});
     });
   },
@@ -105,6 +104,8 @@ export default {
         } else {
           this.$router.back();
         }
+      } else {
+        this.jump = true;
       }
     }
   }
