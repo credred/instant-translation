@@ -2,7 +2,7 @@
 <div class="header">
   <div class="logo"><span class="back" v-show="!onIndex" @click="back">⬅</span>{{headerText}}</div>
   <div class="input-wrap">
-    <input class="input" type="text" v-model="searchText" @focus="switchStatus" @blur="switchStatus" ref="inputText">
+    <input class="input" type="text" v-model="searchText" @focus="switchStatus" @blur="switchStatus" @keyup.enter="push" ref="inputText">
     <transition name="inputFade">
       <div class="input-options" v-show="isActive">
         <span class="input-clear" @click="clear">x</span>
