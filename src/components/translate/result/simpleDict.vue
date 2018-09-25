@@ -1,8 +1,8 @@
 <template>
   <section class="simpleDict_wrap">
     <div class="from">
+      <i class="addFavorite" :class="{addedFavorite: addedFavorite}" @click="$emit('addFavorite')"></i>
       <h3 class="fromText">{{simple.fromText}}</h3>
-      <span class="addFavirite"></span>
       <div class="phonetic" v-if="isEn">
         <span class="phoneticLang" v-for="p in simple.phonetic" :key="p.name">{{p.name}}[{{p.value}}]</span>
       </div>
@@ -20,16 +20,16 @@
     <div class="exchange" v-if="simple.exchange">
       <span class="ex" v-if="simple.exchange.word_pl">复数：{{...simple.exchange.word_pl}}</span>
       <span class="ex" v-if="simple.exchange.word_third">第三人称单数：{{...simple.exchange.word_third}}</span>
-      <span class="ex" v-if="simple.exchange.word_ing">现在进行时{{...simple.exchange.word_ing}}</span>
-      <span class="ex" v-if="simple.exchange.word_past">过去式{{...simple.exchange.word_past}}</span>
-      <span class="ex" v-if="simple.exchange.word_done">过去分词{{...simple.exchange.word_done}}</span>
+      <span class="ex" v-if="simple.exchange.word_ing">现在进行时：{{...simple.exchange.word_ing}}</span>
+      <span class="ex" v-if="simple.exchange.word_past">过去式：{{...simple.exchange.word_past}}</span>
+      <span class="ex" v-if="simple.exchange.word_done">过去分词：{{...simple.exchange.word_done}}</span>
     </div>
   </section>
 </template>
 <script>
 export default {
   name: 'translate_result_simpleDict',
-  props: ['simple'],
+  props: ['simple', 'addedFavorite'],
   data () {
     return {
     };
@@ -59,6 +59,24 @@ export default {
   }
   .phoneticLang + .phoneticLang {
     margin-left: 10px;
+  }
+  .addFavorite {
+    display: block;
+    float: right;
+    width: 24px;
+    height: 24px;
+    margin: 0 auto;
+    background: url(../../../assets/img/favorite.png) no-repeat;
+    background-size: 24px 24px;
+  }
+  .addedFavorite {
+    display: block;
+    float: right;
+    width: 24px;
+    height: 24px;
+    margin: 0 auto;
+    background: url(../../../assets/img/favorite1.png) no-repeat;
+    background-size: 24px 24px;
   }
   .from, .to {
     padding: 10px;
