@@ -30,16 +30,16 @@ export default {
           this.addedFavorite = true;
           this.loading = false;
         } else {
-          this.$axios.post('/translate', {
-            'translate': this.$route.params.result
-          }).then(res => {
-            this.$store.commit('addResult', res.data);
-            this.loading = false;
-          }).catch(error => {
-            console.error(error);
-          });
+          this.postData();
         }
       };
+    };
+    request.onupgradeneeded = (e) => {
+      let db = e.target.result;
+      let objectStore = db.createObjectStore('favorite', {keyPath: 'text', autoIncrement: false});
+      objectStore.createIndex('text', 'text', {
+        unique: true
+      });
     };
   },
   data () {
@@ -95,14 +95,16 @@ export default {
         }
         this.addedFavorite = !this.addedFavorite;
       };
-      request.onupgradeneeded = function (e) {
-        let db = e.target.result;
-        let objectStore = db.createObjectStore('favorite', {keyPath: 'text', autoIncrement: false});
-        objectStore.createIndex('text', 'text', {
-          unique: true
-        });
-        objectStore.add(result);
-      };
+    },
+    postData () {
+      this.$axios.post('/translate', {
+        'translate': this.$route.params.result
+      }).then(res => {
+        this.$store.commit('addResult', res.data);
+        this.loading = false;
+      }).catch(error => {
+        console.error(error);
+      });
     }
   }
 };
